@@ -1,6 +1,6 @@
 ---
 title: "Assignment 1: Introduction"
-author: "Student Name"
+author: "Israel Golden"
 output: pdf_document
 geometry: margin=2.54cm
 ---
@@ -22,21 +22,21 @@ The completed exercise is due on <>.
 
 1. What are your previous experiences with data analytics, R, and Git? Include both formal and informal training.
 
-> Answer: 
+> Answer: My understanding of data anlaytics and R began with what I learned in ENV 710 with John Poulsen in the Fall of 2020. I feel like I got reasonably familiar with R and RStudio as well as the basics of linear modeling as a tool for understanding data in this class. I then took Landscape Analysis and Management with Dean Urban in the Spring of 2021. This class exposed me to a lot of new ways to analyze environmental data (e.g., species distribution models, Maxent) but I've forgotten how to do a lot of those analyses.
 
 2. Are there any components of the course about which you feel confident?
 
-> Answer: 
+> Answer: I'm a latecomer in my education to data analytics, coding, and computer science. As such I don't have a ton of confidence in my ability to do these things. That said, I probably do underestimate my ability perform these tasks. Still, I think there are many benefits to having a beginner's mind when it comes to learning anything. So I guess I'm confident that I'm ready to learn and take lots of notes!
 
 3. Are there any components of the course about which you feel apprehensive?
 
-> Answer: 
+> Answer: As I noted in my previous response, I'm fairly new to coding and data science in general. I feel I can get overwhelmed by the newness of a coding language or platform. For example, I was apprehensive about getting involved with GitHub.
 
 
 ## 2) GitHub
 
 Provide a link below to your forked course repository in GitHub. Make sure you have pulled all recent changes from the course repository  and that you have updated your course README file. 
 
-> Answer: 
+> Answer: <https://github.com/israelgolden/Environmental_Data_Analytics_2022.git>
 
 

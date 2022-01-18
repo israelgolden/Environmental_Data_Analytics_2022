@@ -183,6 +183,7 @@ recipe2 <- function(x){
 
 doublesimplemeal <- recipe2(6)
 doublesimplemeal
+
 ```
 
 Two double ingredient recipes, baked at the same time: 
