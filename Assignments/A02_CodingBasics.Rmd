@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2: Coding Basics"
-author: "Student Name"
+author: "Israel Golden"
 output: pdf_document
 geometry: margin=2.54cm
 editor_options: 
@@ -32,10 +32,25 @@ This exercise accompanies the lessons in Environmental Data Analytics on coding 
 
 ```{r}
 #1. 
+hundred_by_4 <- seq(1,100,4)
+hundred_by_4
+
+# here in problem number 1 I've created an object with the seq() function that counts
+# from 1 to 100 by increments of 4 (1,5,9...) and named that object hundred_by_4
 
 #2. 
+mean(hundred_by_4)
+median(hundred_by_4)
+
+# Here I've used the mean() and median() functions to take the mean and median
+# of the hundred_by_4 object I created in the previous exercise. 
 
 #3. 
+mean(hundred_by_4)>median(hundred_by_4)
+
+# Finally, I've applied a logical statement to test whether the mean
+# of my object (hundred_by_4) is greater than the median of this same object. 
+# Both the mean and median are 49 so the answer is FALSE!
 
 ```
 
@@ -50,21 +65,41 @@ This exercise accompanies the lessons in Environmental Data Analytics on coding 
 8. Label the columns of your data frame with informative titles.
 
 ```{r}
+#5. 
+student_names <- c('john', 'paul', 'george', 'ringo')
+student_grades <- c(100, 90, 80, 12)
+pass_or_fail <- c(TRUE, TRUE, TRUE, FALSE)
 
+#6. 
+class(student_names) # this is a character vector because it has text objects in it
+class(student_grades) # this is a numeric vector because it is composed of numbers
+class(pass_or_fail) # this is a logical vector because it is full of boolean statements
+
+#7 & #8.
+student_records_df <- data.frame("student"=student_names,"grade"=student_grades,"pass.fail"=pass_or_fail)
+
+student_records_df
 ```
 
 9. QUESTION: How is this data frame different from a matrix?
 
-> Answer: 
+> Answer: This dataframe is different from a matrix because it has different data types like character, numeric, and logical statements. By contrast a matrix could only hold one type of data (e.g., character OR numeric OR logical statements).
 
 10. Create a function with an if/else statement. Your function should determine whether a test score is a passing grade of 50 or above (TRUE or FALSE). You will need to choose either the `if` and `else` statements or the `ifelse` statement. Hint: Use `print`, not `return`. The name of your function should be informative.
+
+```{r}
+auto_grader <- function(x){
+  ifelse(x<50, 'FAIL', 'PASS') 
+}
+
+```
 
 11. Apply your function to the vector with test scores that you created in number 5. 
 
 ```{r}
-
+auto_grader(student_records_df$grade)
 ```
 
 12. QUESTION: Which option of `if` and `else` vs. `ifelse` worked? Why?
 
-> Answer: 
+> Answer: In my auto_grader function I chose the 'ifelse' statement to determine whether my four pupils (John, Paul, George, and Ringo [no relation]) passed their test. Here, I will explain why the 'ifelse' statement works for this application. The first part of the 'ifelse' statement is the logical statement, in my case I wanted to know if a given input (x) was less than 50. IF this statement was true, I elected to print FAIL because anything less than 50 was a failing grade in this class. ELSE, meaning the number was not less than 50, would be a passing grade so I elected to print PASS under these conditions. Importantly, 50 is itself a passing grade.   
