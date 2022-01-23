@@ -60,6 +60,9 @@ Visualize count data for categorical variables.
 ```{r, fig.height = 3, fig.width = 4}
 ggplot(USGS.flow.data, aes(x = discharge.mean.approval)) +
   geom_bar()
+ggplot(na.omit(USGS.flow.data, aes(x = discharge.mean.approval))) +
+  geom_bar()
+# bar charts are useful for categorical data!
 ```
 
 ### Histogram (function: geom_histogram)
@@ -86,7 +89,8 @@ ggplot(USGS.flow.data, aes(x = discharge.mean)) +
   
 #
 ggplot(USGS.flow.data) +
-  geom_histogram(aes(x = gage.height.mean))
+  geom_histogram(aes(x = gage.height.mean)) +
+  scale_x_continuous(limits = c(0, 6))
 
 ```
 ### Frequency line graph (function: geom_freqpoly)
