@@ -55,7 +55,7 @@ NTL.nutrient.data.PeterPaul <-
   NTL.nutrient.data.PeterPaul %>% #
   mutate(month = month(sampledate)) %>% #
   select(lakeid:daynum, month, sampledate:comments) %>% # 
-  drop_na(depth)
+  drop_na(depth) # drop all NAs
 
 # Save processed nutrient file
 write.csv(NTL.nutrient.data.PeterPaul, row.names = FALSE, 
@@ -70,6 +70,7 @@ NTL.nutrient.data.PeterPaul.subset <- select(NTL.nutrient.data.PeterPaul,
 
 # write a more succinct line of code to subset the nutrient dataset. 
 
+NTL.nutrient.data.challenge <- select(NTL.nutrient.data.PeterPaul, lakename:sampledate, depth:po4)
 ```
 
 
@@ -91,8 +92,9 @@ We will work with the new functions from `tidyr`. For gather we will use `pivot_
 # Gather nutrient data into one column using pivot_longer
 NTL.nutrient.data.PeterPaul.gathered <- pivot_longer(NTL.nutrient.data.PeterPaul.subset,tn_ug:po4, names_to = "nutrient", values_to = "concentration")
 
+# use logical operator !is.na to remove na values. 
 NTL.nutrient.data.PeterPaul.gathered <- subset(NTL.nutrient.data.PeterPaul.gathered, !is.na(concentration))
-count(NTL.nutrient.data.PeterPaul.gathered, nutrient)
+count(NTL.nutrient.data.PeterPaul.gathered, nutrient) #count how many observations for each nutrient
 
 write.csv(NTL.nutrient.data.PeterPaul.gathered, row.names = FALSE, 
           file = "./Data/Processed/NTL-LTER_Lake_Nutrients_PeterPaulGathered_Processed.csv")

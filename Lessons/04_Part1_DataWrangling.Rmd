@@ -69,8 +69,8 @@ Here are the relevant commands used in the `filter` function. Add some notes to 
 `<=`
 `>`
 `>=`
-`&`
-`|`
+`&` # if both true
+`|` # if only one is true
 
 ```{r}
 class(NTL.phys.data$lakeid)
@@ -93,28 +93,30 @@ dim(NTL.phys.data.surface3)
 
 # Choose multiple conditions to filter
 summary(NTL.phys.data$lakename)
-NTL.phys.data.PeterPaul1 <- filter(NTL.phys.data, lakename == "Paul Lake" | lakename == "Peter Lake")
+NTL.phys.data.PeterPaul1 <- filter(NTL.phys.data, lakename == "Paul Lake" | lakename == "Peter Lake") #Peter Lake OR Paul Lake
 NTL.phys.data.PeterPaul2 <- filter(NTL.phys.data, lakename != "Central Long Lake" & 
                                      lakename != "Crampton Lake" & lakename != "East Long Lake" &
                                      lakename != "Hummingbird Lake" & lakename != "Tuesday Lake" &
                                      lakename != "Ward Lake" & lakename != "West Long Lake")
-NTL.phys.data.PeterPaul3 <- filter(NTL.phys.data, lakename %in% c("Paul Lake", "Peter Lake"))
+NTL.phys.data.PeterPaul3 <- filter(NTL.phys.data, lakename %in% c("Paul Lake", "Peter Lake")) # cleaner way of filtering dataset
 
 # Choose a range of conditions of a numeric or integer variable
 summary(NTL.phys.data$daynum)
 NTL.phys.data.JunethruOctober1 <- filter(NTL.phys.data, daynum > 151 & daynum < 305)
 NTL.phys.data.JunethruOctober2 <- filter(NTL.phys.data, daynum > 151, daynum < 305)
 NTL.phys.data.JunethruOctober3 <- filter(NTL.phys.data, daynum >= 152 & daynum <= 304)
-NTL.phys.data.JunethruOctober4 <- filter(NTL.phys.data, daynum %in% c(152:304))
+NTL.phys.data.JunethruOctober4 <- filter(NTL.phys.data, daynum %in% c(152:304)) # every time daynum matches what is in the vector, that will be extracted for you.
 
 # Exercise: 
 # filter NTL.phys.data for the year 1999
 # what code do you need to use, based on the class of the variable?
 class(NTL.phys.data$year4)
 
+NTL.phys.data.1999 <- filter(NTL.phys.data, year4 == 1999)
 # Exercise: 
 # filter NTL.phys.data for Tuesday Lake from 1990 through 1999.
 
+NTl.phys.data.challenge <- filter(NTL.phys.data, lakename %in% 'Tuesday Lake' & year4 %in% c(1990:1999))
 
 ```
 Question: Why don't we filter using row numbers?
@@ -133,7 +135,7 @@ NTL.phys.data.depth.descending <- arrange(NTL.phys.data, desc(depth))
 # Arrange NTL.phys.data by temperature, in descending order. 
 # Which dates, lakes, and depths have the highest temperatures?
 
-
+NTL.phys.data.temp.descending <- arrange(NTL.phys.data, desc(temperature_C))
 ```
 ### Select
 
@@ -142,6 +144,8 @@ Selecting allows us to choose certain columns (variables) in our dataset.
 ```{r}
 NTL.phys.data.temps <- select(NTL.phys.data, lakename, sampledate:temperature_C)
 
+# the colon here selects all columns between sample date and temperature_C
+# creates a tidier dataset
 ```
 ### Mutate
 
@@ -178,7 +182,7 @@ Let's say we want to take our raw dataset (NTL.phys.data), *then* filter the dat
 
 ```{r}
 NTL.phys.data.processed <- 
-  NTL.phys.data %>%
+  NTL.phys.data %>% # start from original data, filter by lake name
   filter(lakename == "Paul Lake" | lakename == "Peter Lake") %>%
   select(lakename, sampledate:temperature_C) %>%
   mutate(temperature_F = (temperature_C*9/5) + 32)
