@@ -90,14 +90,14 @@ class(Neonics$Conc.1..Author.)
 9. Using `geom_freqpoly`, generate a plot of the number of studies conducted by publication year. 
 ```{r}
 ggplot(Neonics) +
-  geom_freqpoly(aes(x = Publication.Year), bins = 50) 
+  geom_freqpoly(aes(x = Publication.Year), bins = 38) 
 
 ```
 
 10. Reproduce the same graph but now add a color aesthetic so that different Test.Location are displayed as different colors.
 ```{r}
 ggplot(Neonics) +
-  geom_freqpoly(aes(x = Publication.Year, color = Test.Location), bins = 50)
+  geom_freqpoly(aes(x = Publication.Year, color = Test.Location), bins = 38)
 ```
 
 Interpret this graph. What are the most common test locations, and do they differ over time?
@@ -135,15 +135,17 @@ unique_dates
 ```{r}
 unique_plots <- unique(Litter$plotID)
 unique_plots
+
+summary(Litter$plotID)
 ```
 
-> Answer: There are 12 unique plots being sampled at Niwot Ridge. Summary returns three values: length, class, and mode but does not give the number of unique values in the column. Summary also tries to compute summary statistics like minimum, median, mean, max as well as the first and third quartile values. Given that these are factor data, no such statistics can be computed.
+> Answer: There are 12 unique plots being sampled at Niwot Ridge. Summary returns the names of all 12 plots as well as the number of times each plot has been sampled. Unique only tells you how many unique plots there are.
 
 14. Create a bar graph of functionalGroup counts. This shows you what type of litter is collected at the Niwot Ridge sites. Notice that litter types are fairly equally distributed across the Niwot Ridge sites.
 ```{r}
 funcGroupCounts <- ggplot(data = Litter, aes (x = functionalGroup))
 funcGroupCounts + geom_bar(stat = "count") +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    theme(axis.text.x = element_text(angle = 45, hjust=1))
 
 ```
 
