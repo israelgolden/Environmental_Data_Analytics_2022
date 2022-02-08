@@ -19,6 +19,7 @@ editor_options:
 The expression function can be used when you want to add mathematical symbols and subscripts mixed with regular letter to labels. 
 
 ```{r}
+library(ggplot2)
 Plot_text <-
 ggplot(data=data.frame(x=0,y=0))+
   geom_point(aes(x=x,y=y)) +
@@ -60,6 +61,8 @@ Exercise: build your own scatterplots of PeterPaul.chem.nutrients
 # Color your points by year, and facet by lake in two rows.
 # Change the ylab name
 
+surfacetempplot <-   
+  ggplot(PeterPaul.chem.nutrients, aes(x= daynum, y = temperature_C)) +
 
 #2. 
 # Plot temperature by date. Color your points by depth.
