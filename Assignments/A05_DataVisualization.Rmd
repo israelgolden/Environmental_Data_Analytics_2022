@@ -34,14 +34,13 @@ the processed data file for the Niwot Ridge litter dataset (use the [`NEON_NIWO_
 ```{r}
 #1 
 getwd()
+setwd("/Users/israelgolden/Desktop/School/MEM/Semester 4/ENV 872/GitHub Repos/Environmental_Data_Analytics_2022")
 #Load packages
 library(tidyverse)
 library(cowplot)
 #load data
-PeterPaul.chem.nutrients <- read.csv("./Data/Processed/NTL-LTER_Lake_Chemistry_
-                                     Nutrients_PeterPaul_Processed.csv",
-                                     stringsAsFactors = TRUE)
-NEON.litter <- read.csv("../Data/Processed/NEON_NIWO_Litter_mass_trap_Processed.csv")
+PeterPaul.chem.nutrients <- read.csv("../Environmental_Data_Analytics_2022/Data/Processed/NTL-LTER_Lake_Chemistry_Nutrients_PeterPaul_Processed.csv", stringsAsFactors = TRUE)
+NEON.litter <- read.csv("../Environmental_Data_Analytics_2022/Data/Processed/NEON_NIWO_Litter_mass_trap_Processed.csv")
 
 #2 
 PeterPaul.chem.nutrients$sampledate <- as.Date(PeterPaul.chem.nutrients$sampledate, format = "%Y-%m-%d")
