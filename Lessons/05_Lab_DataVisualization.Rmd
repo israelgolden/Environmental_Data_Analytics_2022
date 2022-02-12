@@ -23,7 +23,7 @@ library(ggplot2)
 Plot_text <-
 ggplot(data=data.frame(x=0,y=0))+
   geom_point(aes(x=x,y=y)) +
-  geom_text(x=0,y=0.025,label=expression(paste("Mean is ", mu,",", R^{2},'=0.6')))
+  geom_text(x=0,y=0.025,label=expression(paste("Mean is ", mu,", ", R^{2},' = 0.6')))
 print(Plot_text)
 
 ggsave("./Output/Plot_text.jpg",Plot_text, height = 4, width = 6, units = "in", dpi = 300)
@@ -61,8 +61,16 @@ Exercise: build your own scatterplots of PeterPaul.chem.nutrients
 # Color your points by year, and facet by lake in two rows.
 # Change the ylab name
 
-surfacetempplot <-   
-  ggplot(PeterPaul.chem.nutrients, aes(x= daynum, y = temperature_C)) +
+ggplot(filter(PeterPaul.chem.nutrients, depth == 0)) +
+  geom_point(aes(x=daynum, y=temperature_C, color = year4)) +
+  facet_wrap('lakename') +
+  ylab('Temperature')
+
+PeterPaul.chem.nutrients.surface <- PeterPaul.chem.nutrients %>% filter(depth == 0)
+ggplot(PeterPaul.chem.nutrients.surface, aes(x= daynum, y = temperature_C, col=year4)) +
+  geom_point() +
+  facet_wrap(vars(lakename), nrow = 1) +
+  ylab('Day of the year')
 
 #2. 
 # Plot temperature by date. Color your points by depth.
@@ -70,8 +78,12 @@ surfacetempplot <-
 # Change the color palette to magma and play with direction (+- 1), which one makes more sense?
 # Change x axis to include marker/labels every 5 years
 
+library(viridis)
 
-
+ggplot(PeterPaul.chem.nutrients, aes(x= sampledate, y = temperature_C, col=depth)) +
+  geom_point(size = 0.5) +
+    scale_color_viridis(option = "magma", direction = -1) +
+      scale_x_date(date_breaks = "5 years", date_labels = "%Y")
 
 ```
 ## Plotting the relationship between two continuous variables: Scatterplot
@@ -85,8 +97,9 @@ Exercise: Plot relationships between air quality measurements
 # Make the points 50 % transparent
 # Add a line of best fit for the linear regression of these variables.
 
-
-
+ggplot(EPAair, aes(x = PM2.5, y = Ozone, col = meanLat, alpha=0.5)) +
+  geom_point() +
+  geom_smooth(method = lm)
 
 ```
 
