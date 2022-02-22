@@ -136,7 +136,7 @@ print(irradiancebydepth2)
 
 # SE - confidence interval around smooth can also be removed
 irradiancebydepth2 <- 
-    ggplot(PeterPaul.chem.nutrients, aes(x = depth, y = irradianceWater)) +
+    ggplot(PeterPaul.chem.nutrients, aes(x = depth, y = irradianceWater, col = depth)) +
     geom_point() +
     scale_y_log10() +  #log transformed values for irradianceWater
     geom_smooth(method = 'lm', se = FALSE, color = "black")
