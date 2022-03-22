@@ -97,7 +97,6 @@ colnames(counties_sf)
 #
 st_crs(counties_sf) 
 
-
 #
 nrow(counties_sf)
 
@@ -117,19 +116,21 @@ mapView(counties_sf, zcol = "AWATER")
 
 ```{r read HUCs shapefile}
 #Read the shapefile into an sf dataframe named "huc8_sf"
-
+huc8_sf <- st_read('./Data/Spatial/NCHUC8.shp')
 
 #Reveal the columns
-
+colnames(huc8_sf)
 
 #Check the CRS
-
+st_crs(huc8_sf)$epsg
 
 #Examine some records
-
+head(huc8_sf)
 
 #View the data as a map, colored by the acreage in each
-
+ggplot(data=huc8_sf) + 
+  geom_sf(aes(fill=ACRES)) +
+scale_fill_continuous(type='viridis')
 
 ```
 
@@ -139,11 +140,14 @@ mapView(counties_sf, zcol = "AWATER")
 
 ```{r Select the Upper Neuse HUC 8}
 #Read the shapefile into an sf dataframe
-
+huc8_sf_neuse <- st_read('./Data/Spatial/NCHUC8.shp') %>%
+  filter(SUBBASIN == 'Upper Neuse')
 
 
 #Create a map
-
+ggplot() + 
+  geom_sf(data=huc8_sf,fill='orange')+
+  geom_sf(data=huc8_sf_neuse, fill = 'purple')
 
 ```
 
@@ -239,18 +243,24 @@ ggplot() +
 
 ```{r}
 #Compute HUC8 wind energy
-
-
-
+wind_energy <- read.csv('https://raw.githubusercontent.com/ENV859/EnviroAtlasData/main/Wind_Energy.csv', colClasses = c('HUC_12' = 'factor')) %>%
+  mutate(HUC_8 = substr(HUC_12, 1,8)) %>%
+  group_by(HUC_8) %>%
+  summarize(SumWindEnergy = sum(AvgWindEnergy))
 
 #Join to HUC_8 features
-
-
-
+huc8_sf_join <- merge(x=counties_sf,
+                      y=svi2018_nc_raw,
+                      by.x = 'HUC_8',
+                      by.y = 'FIPS')
 
 #View the outputs
-
-
+ggplot(data = huc8_sf_join) +
+  geom_sf(aes(fille = SumWindEnergy)) +
+  labs(
+    title  = 'Wind energy by HUC 8',
+    fill = 'MW/year'
+  )
 
 ```
 
@@ -364,18 +374,25 @@ mapview(neuse_counties_sf, zcol='Area_m2')
 
 ```{r EXERCISE: Clipping}
 #Select the Triangle County from the 
+triangle_co <- counties_sf_utm %>%
+  filter(NAME %in% c('Chatham','Durham','Orang','Wake'))
 
-
-
-  
 #Grab the intersecting HUC_8s
+triangle_HUCs <- huc8_sf_utm %>%
+  filter(st_intersects(x = ., y = triangle_co, sparse = F))
 
+triangle_HUCs <- huc8_sf_utm[triangle_co,]
 
+ggplot() +
+  geom_sf(data = triangle_co, color = 'grey') +
+  geom_sf(data = huc8_sf_utm, color = 'green', fill = NA) +
+  geom_sf(data = triangle_HUCs, color = 'blue', fill = NA)
+  
 
 #Intersect the HUC_8s
-
-
-
+triangle_HUCS.clipped <- triangle_co %>%
+  st_intersection(huc8_sf_utm)
+mapview(triangle_HUCS.clipped)
 
 ```
 
