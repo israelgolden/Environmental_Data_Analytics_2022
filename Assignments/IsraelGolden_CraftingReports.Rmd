@@ -1,10 +1,8 @@
 ---
-title: '11: Crafting Reports'
-author: Environmental Data Analytics | John Fay & Luana Lima | Developed by Kateri Salk | Exercises performed by Israel Golden
-date: "Spring 2022"
-output:
- pdf_document: default
-
+title: "IsraelGolden_CraftingReports"
+author: "Israel Golden"
+date: "4/1/2022"
+output: pdf_document
 ---
 
 ## LESSON OBJECTIVES
@@ -87,11 +85,8 @@ NEON NIWO Litter Trap Data    | This dataset has info about forest floor litter
 
 Create an R chunk below that installs the package `knitr`. Instead of commenting out the code, customize the chunk options such that the code is not evaluated (i.e., not run).
 
-```{r install.packages, eval=FALSE, include=FALSE}
+```{r install.packages, eval=FALSE}
 install.packages('knitr')
-update.packages(ask = FALSE, checkBuilt = TRUE)
-tinytex::tlmgr_update()
-tinytex::reinstall_tinytex()
 ```
 
 ### Setup
@@ -99,11 +94,7 @@ tinytex::reinstall_tinytex()
 Create an R chunk below called "setup" that checks your working directory, loads the packages `tidyverse`, `lubridate`, and `knitr`, and sets a ggplot theme. Remember that you need to disable R throwing a message, which contains a check mark that cannot be knitted.
 
 ```{r setup}
-knitr::opts_chunk$set(
-	message = FALSE,
-	warning = FALSE,
-	include = FALSE
-)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 getwd()
 library(tidyverse)
 library(lubridate)
@@ -132,7 +123,7 @@ Create an R chunk below to create a processed dataset do the following operation
 -   Include only surface samples (depth = 0 m)
 -   Drop rows with missing data
 
-```{r Data wrangling, echo=TRUE, message=TRUE}
+```{r Data wrangling}
 LakeNutrientsProcessed <- LakeNutrientsRaw %>%
   select(lakename:sampledate,depth:po4) %>%
   filter(depth == 0) %>%
@@ -161,7 +152,7 @@ PhosphorousSummary <- LakeNutrientsProcessed %>%
 
 Create a third R chunk that uses the function `kable` in the knitr package to display two tables: one for the summary dataframe for total N and one for the summary dataframe of total P. Use the `caption = " "` code within that function to title your tables. Customize the chunk options such that the final table is displayed but not the code used to generate the table.
 
-```{r}
+```{r echo=FALSE}
 NitrogenTable <-kable(NitrogenSummary, format="html", caption="Total Nitrogen Concentrations")
 print(NitrogenTable)
 
